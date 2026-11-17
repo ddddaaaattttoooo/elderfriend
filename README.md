@@ -43,8 +43,9 @@ Android phone:
 
 ## Screenshots
 
-All example contacts and numbers below are fictional: they use the unassigned
-`555` area code.
+**The names and phone numbers shown in the screenshots are fake.** They are
+used only as examples, the `555` area code is unassigned, and none of them
+belong to a real person.
 
 <p align="center">
   <img src="docs/screenshots/home.png" alt="Home screen" width="23%">
@@ -52,6 +53,8 @@ All example contacts and numbers below are fictional: they use the unassigned
   <img src="docs/screenshots/missed.png" alt="Missed calls" width="23%">
   <img src="docs/screenshots/camera.png" alt="Camera menu" width="23%">
 </p>
+
+<p align="center"><sub>Screenshots use invented contact names and numbers. They are not real people.</sub></p>
 
 ## Install
 
