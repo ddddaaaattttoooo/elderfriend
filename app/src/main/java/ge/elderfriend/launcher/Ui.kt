@@ -35,6 +35,24 @@ object Ui {
             cornerRadius = dp(ctx, radiusDp).toFloat()
         }
 
+
+    /** A rounded panel used by the setup and caregiver screens. */
+    fun card(ctx: Context): LinearLayout = LinearLayout(ctx).apply {
+        orientation = LinearLayout.VERTICAL
+        background = rounded(ctx, Color.parseColor("#FF18212D"), 22)
+        elevation = dp(ctx, 2).toFloat()
+        setPadding(dp(ctx, 16), dp(ctx, 16), dp(ctx, 16), dp(ctx, 16))
+    }
+
+    fun sectionTitle(ctx: Context, value: CharSequence): TextView =
+        text(ctx, value, 23f, Color.WHITE, true).apply { gravity = Gravity.START }
+
+    fun note(ctx: Context, value: CharSequence): TextView =
+        text(ctx, value, 18f, Color.parseColor("#FFB9C6D4")).apply {
+            gravity = Gravity.START
+            setLineSpacing(dp(ctx, 4).toFloat(), 1f)
+        }
+
     fun text(
         ctx: Context,
         value: CharSequence,

@@ -57,4 +57,9 @@
     <string name="setup_intro">A few taps and the phone is ready for your family member.</string>
     <string name="setup_done">Done</string>
     <string name="made_by">Made by ddddaaaattttoooo</string>
+    <string name="setup_permissions_note">Contacts, call log and phone access. Needed to show names, place calls and count missed calls.</string>
+    <string name="setup_tiles_note">Tick the buttons that should appear on the home screen. Apps that are not installed stay hidden.</string>
+    <string name="setup_home_note">Make Elderfriend the default home app so it opens when the phone starts.</string>
+    <string name="caregiver_intro">The screen for the family. Nothing here changes anything permanently.</string>
+    <string name="caregiver_actions">Actions</string>
 </resources>

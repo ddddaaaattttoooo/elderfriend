@@ -52,10 +52,27 @@ belong to a real person.
   <img src="docs/screenshots/contacts.png" alt="Contacts" width="18%">
   <img src="docs/screenshots/missed.png" alt="Missed calls" width="18%">
   <img src="docs/screenshots/camera.png" alt="Camera menu" width="18%">
-  <img src="docs/screenshots/setup.png" alt="First-run setup" width="18%">
 </p>
 
 <p align="center"><sub>Screenshots use invented contact names and numbers. They are not real people.</sub></p>
+
+### Setup, screen by screen
+
+<p align="center">
+  <img src="docs/screenshots/setup-1.png" alt="Setup: welcome and permissions" width="23%">
+  <img src="docs/screenshots/setup-2.png" alt="Setup: choosing tiles" width="23%">
+  <img src="docs/screenshots/setup-3.png" alt="Setup: remaining tiles" width="23%">
+  <img src="docs/screenshots/setup-4.png" alt="Setup: home screen and done" width="23%">
+</p>
+
+### Caregiver mode, screen by screen
+
+<p align="center">
+  <img src="docs/screenshots/caregiver-1.png" alt="Caregiver mode: header" width="23%">
+  <img src="docs/screenshots/caregiver-2.png" alt="Caregiver mode: tile list" width="23%">
+  <img src="docs/screenshots/caregiver-3.png" alt="Caregiver mode: actions" width="23%">
+  <img src="docs/screenshots/caregiver-4.png" alt="Caregiver mode: more actions and credit" width="23%">
+</p>
 
 ## First run
 

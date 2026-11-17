@@ -57,4 +57,9 @@
     <string name="setup_intro">რამდენიმე შეხება და ტელეფონი მზადაა.</string>
     <string name="setup_done">მზადაა</string>
     <string name="made_by">შექმნილია ddddaaaattttoooo</string>
+    <string name="setup_permissions_note">კონტაქტები, ზარების ჟურნალი და ტელეფონზე წვდომა. საჭიროა სახელების, ზარებისა და გამოტოვებულებისთვის.</string>
+    <string name="setup_tiles_note">მონიშნეთ ღილაკები, რომლებიც უნდა იყოს მთავარ ეკრანზე. დაუყენებელი აპები არ ჩანს.</string>
+    <string name="setup_home_note">გახადეთ Elderfriend მთავარი ეკრანი, რომ ტელეფონის ჩართვისას გაიხსნას.</string>
+    <string name="caregiver_intro">ოჯახის ეკრანი. აქ არაფერი იცვლება შეუქცევადად.</string>
+    <string name="caregiver_actions">მოქმედებები</string>
 </resources>
