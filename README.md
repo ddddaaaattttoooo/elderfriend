@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/license-GPL--3.0-2f6f78?style=flat-square" alt="License: GPL-3.0">
+  <img src="https://img.shields.io/badge/license-MIT-2f6f78?style=flat-square" alt="License: MIT">
   <img src="https://img.shields.io/badge/platform-Android%2010%2B-3ddc84?style=flat-square" alt="Android 10+">
   <img src="https://img.shields.io/badge/version-1.0.0-f2795b?style=flat-square" alt="Version 1.0.0">
   <img src="https://img.shields.io/badge/internet%20permission-none-c0392b?style=flat-square" alt="No internet permission">
@@ -185,10 +185,10 @@ there is no network code and no third-party SDK.
 
 ## License
 
-[GPL-3.0](LICENSE). You can use, change and share it; if you distribute a
-modified version, it must stay under the same license. Copyright notice and
-third-party asset credits are in [NOTICE](NOTICE); the tile icons are derived
-from Material Icons (Apache-2.0) and the logo is original artwork.
+[MIT](LICENSE). You can use, change, share and even sell it; just keep the
+copyright notice. Third-party asset credits are in [NOTICE](NOTICE); the tile
+icons are derived from Material Icons (Apache-2.0) and the logo is original
+artwork.
 
 Elderfriend is an independent project. It is not affiliated with Google, Apple,
 Fossify, WhatsApp, Meta or Viber; product names are used only to describe what
