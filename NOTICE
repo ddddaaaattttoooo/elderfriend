@@ -1,0 +1,19 @@
+Elderfriend
+Copyright (C) 2026 Elderfriend contributors
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version. See LICENSE for the full text. There is NO WARRANTY.
+
+Third-party assets
+------------------
+The tile icons in app/src/main/res/drawable/ic_tile_*.xml are derived from
+Material Icons (https://fonts.google.com/icons) by Google LLC, licensed under
+the Apache License, Version 2.0:
+https://www.apache.org/licenses/LICENSE-2.0
+
+The Elderfriend logo (assets/logo.png, assets/logo.svg, assets/banner.png) and
+the launcher icon are original artwork made for this project.
+
+No third-party application binaries are included in this repository.

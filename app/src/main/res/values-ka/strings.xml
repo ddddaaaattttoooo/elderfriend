@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Elderfriend</string>
+
+    <string name="tile_call">დარეკვა</string>
+    <string name="tile_contacts">კონტაქტები</string>
+    <string name="tile_messages">წერილები</string>
+    <string name="tile_whatsapp">WhatsApp</string>
+    <string name="tile_viber">Viber</string>
+    <string name="tile_messenger">Messenger</string>
+    <string name="tile_facebook">Facebook</string>
+    <string name="tile_camera">კამერა</string>
+
+    <string name="home">უკან</string>
+    <string name="retry">გაგრძელება</string>
+    <string name="restart">Elderfriend-ის გადატვირთვა</string>
+    <string name="confirm_call">დავურეკოთ %1$s-ს?</string>
+    <string name="yes">კი</string>
+    <string name="no">არა</string>
+    <string name="no_network">ქსელი არ არის</string>
+    <string name="not_installed">%1$s არ არის დაყენებული</string>
+    <string name="unknown">უცნობია</string>
+
+    <string name="contacts">კონტაქტები</string>
+    <string name="no_contacts">კონტაქტები არ არის</string>
+    <string name="grant_access">წვდომის დაშვება</string>
+    <string name="need_permission">კონტაქტებზე წვდომა არ არის</string>
+
+    <string name="take_photo">ფოტოს გადაღება</string>
+    <string name="gallery">ფოტოები</string>
+    <string name="flashlight_on">ფანარი: ჩართულია</string>
+    <string name="flashlight_off">ფანარი: გამორთულია</string>
+    <string name="no_camera">კამერა ვერ მოიძებნა</string>
+    <string name="no_flash">ფანარი არ არის</string>
+
+    <string name="caregiver">დამხმარის რეჟიმი</string>
+    <string name="caregiver_tiles">ღილაკები მთავარ ეკრანზე</string>
+    <string name="caregiver_settings">ტელეფონის პარამეტრები</string>
+    <string name="caregiver_aurora">Aurora Store</string>
+    <string name="caregiver_home">მთავარი ეკრანის არჩევა</string>
+    <string name="caregiver_permissions">ნებართვები</string>
+    <string name="close">დახურვა</string>
+
+    <string name="safe_mode">Elderfriend არ ჩაირთო.\n\nგახსენით „ტელეფონის პარამეტრები“ და აირჩიეთ სხვა მთავარი ეკრანი.</string>
+    <string name="how_to_call">როგორ დავურეკოთ %1$s-ს?</string>
+    <string name="call_question">დავურეკოთ %1$s?</string>
+    <string name="call_phone">ჩვეულებრივი ზარი</string>
+    <string name="cancel">გაუქმება</string>
+    <string name="tile_missed">გამოტოვებული</string>
+    <string name="tile_recent">ზარები</string>
+    <string name="missed_title">გამოტოვებული ზარები</string>
+    <string name="recent_title">ბოლო ზარები</string>
+    <string name="no_missed">გამოტოვებული ზარი არ არის</string>
+    <string name="no_recent">ზარები არ არის</string>
+    <string name="missed_mark">გამოტოვებული</string>
+</resources>

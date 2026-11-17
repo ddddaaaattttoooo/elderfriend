@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- DEFAULT locale = Russian (the agreed fallback when the phone is in any
+     unsupported language). English lives in values-en, Georgian in values-ka. -->
+<resources>
+    <string name="app_name">Elderfriend</string>
+
+    <string name="tile_call">Позвонить</string>
+    <string name="tile_contacts">Контакты</string>
+    <string name="tile_messages">Сообщения</string>
+    <string name="tile_whatsapp">WhatsApp</string>
+    <string name="tile_viber">Viber</string>
+    <string name="tile_messenger">Messenger</string>
+    <string name="tile_facebook">Facebook</string>
+    <string name="tile_camera">Камера</string>
+
+    <string name="home">Домой</string>
+    <string name="retry">Продолжить</string>
+    <string name="restart">Перезапустить Elderfriend</string>
+    <string name="confirm_call">Позвонить: %1$s?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="no_network">Нет сети</string>
+    <string name="not_installed">%1$s не установлено</string>
+    <string name="unknown">Неизвестно</string>
+
+    <string name="contacts">Контакты</string>
+    <string name="no_contacts">Контактов нет</string>
+    <string name="grant_access">Разрешить доступ</string>
+    <string name="need_permission">Нет доступа к контактам</string>
+
+    <string name="take_photo">Сделать фото</string>
+    <string name="gallery">Фотографии</string>
+    <string name="flashlight_on">Фонарик: включён</string>
+    <string name="flashlight_off">Фонарик: выключен</string>
+    <string name="no_camera">Камера не найдена</string>
+    <string name="no_flash">Фонарика нет</string>
+
+    <string name="caregiver">Режим помощника</string>
+    <string name="caregiver_tiles">Кнопки на главном экране</string>
+    <string name="caregiver_settings">Настройки телефона</string>
+    <string name="caregiver_aurora">Aurora Store</string>
+    <string name="caregiver_home">Выбрать домашний экран</string>
+    <string name="caregiver_permissions">Разрешения</string>
+    <string name="close">Закрыть</string>
+
+    <string name="safe_mode">Elderfriend не запустился.\n\nОткройте «Настройки телефона» и выберите другой домашний экран.</string>
+    <string name="how_to_call">Как позвонить: %1$s?</string>
+    <string name="call_question">Позвонить: %1$s?</string>
+    <string name="call_phone">Обычный звонок</string>
+    <string name="cancel">Отмена</string>
+    <string name="tile_missed">Пропущенные</string>
+    <string name="tile_recent">Звонки</string>
+    <string name="missed_title">Пропущенные звонки</string>
+    <string name="recent_title">Последние звонки</string>
+    <string name="no_missed">Нет пропущенных звонков</string>
+    <string name="no_recent">Нет звонков</string>
+    <string name="missed_mark">Пропущен</string>
+</resources>

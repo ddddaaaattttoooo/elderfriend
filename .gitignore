@@ -1,0 +1,17 @@
+# Gradle / Android build output
+.gradle/
+build/
+app/build/
+local.properties
+captures/
+*.iml
+.idea/
+
+# Signing material must never be committed
+keystore.properties
+*.jks
+*.keystore
+
+# OS noise
+.DS_Store
+Thumbs.db

@@ -1,0 +1,11 @@
+image: mingc/android-build-box:latest
+
+build:
+  script:
+    - chmod +x gradlew
+    - ./gradlew --no-daemon assembleDebug
+  artifacts:
+    name: "elderfriend-debug"
+    paths:
+      - app/build/outputs/apk/debug/*.apk
+    expire_in: 1 month
