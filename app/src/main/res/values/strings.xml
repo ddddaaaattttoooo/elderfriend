@@ -55,4 +55,8 @@
     <string name="no_missed">Нет пропущенных звонков</string>
     <string name="no_recent">Нет звонков</string>
     <string name="missed_mark">Пропущен</string>
+    <string name="setup_title">Добро пожаловать в Elderfriend</string>
+    <string name="setup_intro">Несколько нажатий — и телефон готов для вашего близкого.</string>
+    <string name="setup_done">Готово</string>
+    <string name="made_by">Сделал ddddaaaattttoooo</string>
 </resources>

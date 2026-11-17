@@ -53,4 +53,8 @@
     <string name="no_missed">No missed calls</string>
     <string name="no_recent">No calls</string>
     <string name="missed_mark">Missed</string>
+    <string name="setup_title">Welcome to Elderfriend</string>
+    <string name="setup_intro">A few taps and the phone is ready for your family member.</string>
+    <string name="setup_done">Done</string>
+    <string name="made_by">Made by ddddaaaattttoooo</string>
 </resources>

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Gravity
 import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.ScrollView
@@ -31,14 +32,14 @@ class CaregiverActivity : Activity() {
         }
 
         root.addView(
-            Ui.text(this, getString(R.string.caregiver), 30f, Color.WHITE, true),
+            Ui.text(this, getString(R.string.caregiver), 30f, Color.WHITE, true).apply { gravity = Gravity.START },
             LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
         )
         root.addView(
-            Ui.text(this, getString(R.string.caregiver_tiles), 20f, Color.parseColor("#FFBBBBBB")),
+            Ui.text(this, getString(R.string.caregiver_tiles), 20f, Color.parseColor("#FFBBBBBB")).apply { gravity = Gravity.START },
             LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -53,6 +54,7 @@ class CaregiverActivity : Activity() {
                 setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 24f)
                 setTextColor(Color.WHITE)
                 minHeight = Ui.dp(this@CaregiverActivity, 64)
+                isFocusable = false
                 setPadding(0, Ui.dp(this@CaregiverActivity, 8), 0, Ui.dp(this@CaregiverActivity, 8))
                 setOnCheckedChangeListener { _, checked -> store.setVisible(id, checked) }
             }
@@ -85,6 +87,7 @@ class CaregiverActivity : Activity() {
             val wanted = listOf(
                 Manifest.permission.CALL_PHONE,
                 Manifest.permission.READ_CONTACTS,
+                Manifest.permission.READ_CALL_LOG,
                 Manifest.permission.READ_PHONE_STATE
             ).filter { checkSelfPermission(it) != PackageManager.PERMISSION_GRANTED }
             if (wanted.isEmpty()) {
@@ -95,11 +98,22 @@ class CaregiverActivity : Activity() {
         }
         addButton(root, getString(R.string.close), "#FF444444") { finish() }
 
+        root.addView(
+            Ui.text(this, getString(R.string.made_by), 18f, Color.parseColor("#FF7A8794")).apply {
+                gravity = Gravity.CENTER
+            },
+            LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).also { it.setMargins(0, Ui.dp(this, 22), 0, Ui.dp(this, 8)) }
+        )
+
         val scroll = ScrollView(this).apply {
             setBackgroundColor(Color.BLACK)
             addView(root)
         }
         setContentView(scroll)
+        scroll.post { scroll.scrollTo(0, 0) }
     }
 
     private fun addButton(parent: LinearLayout, label: String, color: String, onClick: () -> Unit) {

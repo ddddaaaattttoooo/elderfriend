@@ -48,13 +48,56 @@ used only as examples, the `555` area code is unassigned, and none of them
 belong to a real person.
 
 <p align="center">
-  <img src="docs/screenshots/home.png" alt="Home screen" width="23%">
-  <img src="docs/screenshots/contacts.png" alt="Contacts" width="23%">
-  <img src="docs/screenshots/missed.png" alt="Missed calls" width="23%">
-  <img src="docs/screenshots/camera.png" alt="Camera menu" width="23%">
+  <img src="docs/screenshots/home.png" alt="Home screen" width="18%">
+  <img src="docs/screenshots/contacts.png" alt="Contacts" width="18%">
+  <img src="docs/screenshots/missed.png" alt="Missed calls" width="18%">
+  <img src="docs/screenshots/camera.png" alt="Camera menu" width="18%">
+  <img src="docs/screenshots/setup.png" alt="First-run setup" width="18%">
 </p>
 
 <p align="center"><sub>Screenshots use invented contact names and numbers. They are not real people.</sub></p>
+
+## First run
+
+The first time it opens, Elderfriend shows a short setup screen made for the
+family member who prepares the phone:
+
+1. **Permissions** — contacts, call log and phone access, with one big button.
+2. **Buttons on the home screen** — tick the tiles to show. Apps that are not
+   installed are marked `(—)` and stay hidden anyway.
+3. **Choose home screen** — opens the Android screen where Elderfriend can be
+   made the default home app.
+4. **Done** — or **Close** to skip; nothing is mandatory.
+
+The same options are always available later in caregiver mode, so setup does
+not need to be repeated. If you want to see the wizard again, clear the app's
+data in Android Settings.
+
+## Caregiver mode
+
+Hold the top bar with the clock and date for about three seconds. A normal tap
+does nothing, so the phone owner cannot open this by accident.
+
+Inside caretaker mode, all controls are large and nothing is destructive:
+
+- **Buttons on the home screen** — check or uncheck any of the ten tiles.
+  Missing apps show `(—)`.
+- **Permissions** — asks for contacts, call log and phone access, or confirms
+  they are already granted.
+- **Choose home screen** — the Android default-home picker.
+- **Phone settings** — the real Android Settings, for Wi-Fi, sound, accounts.
+- **Aurora Store** — opens the app store if it is installed.
+- **Restart home** — reloads the home screen after changes.
+- **Close** — returns to the home screen.
+
+Changes apply immediately: tick a tile, close, and it is on the home screen.
+
+## Credits
+
+Created and maintained by [@ddddaaaattttoooo](https://github.com/ddddaaaattttoooo),
+originally for a great-grandmother who needed a phone that explains itself.
+The launcher, logo and screenshots are original work; see [NOTICE](NOTICE) for
+third-party asset credits.
 
 ## Install
 

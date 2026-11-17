@@ -83,6 +83,12 @@
             android:theme="@style/Theme.Elder" />
 
         <activity
+            android:name=".SetupActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Elder" />
+
+        <activity
             android:name=".CaregiverActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|uiMode|locale|layoutDirection|fontScale"
             android:exported="false"

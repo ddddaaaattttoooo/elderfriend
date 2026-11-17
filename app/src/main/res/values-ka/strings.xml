@@ -53,4 +53,8 @@
     <string name="no_missed">გამოტოვებული ზარი არ არის</string>
     <string name="no_recent">ზარები არ არის</string>
     <string name="missed_mark">გამოტოვებული</string>
+    <string name="setup_title">მოგესალმებით Elderfriend-ში</string>
+    <string name="setup_intro">რამდენიმე შეხება და ტელეფონი მზადაა.</string>
+    <string name="setup_done">მზადაა</string>
+    <string name="made_by">შექმნილია ddddaaaattttoooo</string>
 </resources>

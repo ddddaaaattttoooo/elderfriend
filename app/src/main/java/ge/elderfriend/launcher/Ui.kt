@@ -122,6 +122,7 @@ object Ui {
         setTextColor(fg)
         background = rounded(ctx, bg, 16)
         stateListAnimator = null
+        isFocusable = false
         minHeight = dp(ctx, heightDp)
         minimumHeight = dp(ctx, heightDp)
         setPadding(dp(ctx, 10), dp(ctx, 10), dp(ctx, 10), dp(ctx, 10))

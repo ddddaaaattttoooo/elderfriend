@@ -99,6 +99,9 @@ class MainActivity : Activity() {
             bindHeader()
             bindFooter()
             buildTiles()
+            if (!prefs().getBoolean("setup_done", false)) {
+                startActivity(Intent(this, SetupActivity::class.java))
+            }
         } catch (t: Throwable) {
             Log.e(TAG, "home screen failed to build", t)
             ready = false
