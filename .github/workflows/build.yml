@@ -15,7 +15,13 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - uses: android-actions/setup-android@v3
+      - name: Prepare Android SDK
+        run: |
+          echo "Using SDK at $ANDROID_SDK_ROOT"
+          if command -v sdkmanager >/dev/null; then
+            yes | sdkmanager --licenses >/dev/null || true
+            sdkmanager "platforms;android-34" "build-tools;34.0.0" >/dev/null || true
+          fi
       - run: chmod +x gradlew
       - run: ./gradlew --no-daemon assembleDebug
       - uses: actions/upload-artifact@v4
