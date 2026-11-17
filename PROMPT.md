@@ -1,18 +1,26 @@
 # Set up Elderfriend with a coding assistant
 
-Copy everything below into Claude Code, Codex, Gemini CLI or any assistant that
-can run shell commands on your computer. It will walk you through installing
-Elderfriend on an Android phone over USB, in the same spirit as
-[CleanYourTV](https://github.com/Gathin23/cleanyourtv): nothing is uninstalled,
-every change has an undo, and it asks before touching anything.
+Elderfriend installs and runs on its own; none of this is required. There are
+two tracks, and you only paste the one you want into Claude Code, Codex, Gemini
+CLI or any assistant that can run shell commands on your computer.
+
+- **Track 1 — just Elderfriend.** Install the app, grant its permissions, make
+  it the home screen. The phone is otherwise untouched. Steps 1–3 below.
+- **Track 2 — Elderfriend, tuned for an older person.** Track 1 plus optional
+  comfort settings (bigger interface, larger text, longer screen timeout) and,
+  only with your explicit approval, disabling obvious vendor junk. Step 4 and 5.
+
+Nothing is ever uninstalled, every change has an undo, and the assistant must
+ask before touching anything.
 
 ---
 
-You are helping me set up **Elderfriend**, a simple big-button home screen for
+## Track 1 — install Elderfriend
+
+You are helping me install **Elderfriend**, a simple big-button home screen for
 an older person, on an Android 10+ phone. Work step by step, explain each
 command in one sentence before running it, and stop and ask me before anything
-that changes the phone. Never disable a package I have not approved. Never
-factory reset anything.
+that changes the phone. Never factory reset anything.
 
 **Safety rules**
 
@@ -50,9 +58,17 @@ factory reset anything.
 3. Press Home and confirm Elderfriend opens. Ask me to open the first-run setup
    screen and choose the buttons the person actually uses.
 
-**Step 4 — optional comfort tweaks (ask first, one at a time)**
+Stop here if I only wanted Elderfriend. Confirm a call can be placed and
+received, then you are done.
 
-Only do these if I say yes. Each has an undo in parentheses.
+---
+
+## Track 2 — optional extras
+
+Only continue if I ask for the tuned setup. Do one item at a time and wait for
+my yes before each command. Each line has its undo in parentheses.
+
+**Comfort settings**
 
 - Bigger interface: `adb shell wm density 500`
   (undo: `adb shell wm density reset`). Try 440 first on small phones.
@@ -64,9 +80,9 @@ Only do these if I say yes. Each has an undo in parentheses.
 Do not set a density so high that the camera screen or settings get clipped:
 open Elderfriend's Camera tile and the system Settings and check both.
 
-**Step 5 — optional debloat (only with explicit approval)**
+**Debloat (only with explicit approval)**
 
-1. First back up what is installed:
+1. Back up what is installed:
    `adb shell pm list packages -f > packages-before.txt`.
 2. Identify *only* obvious vendor junk (ads, duplicate stores, unused
    preinstalled games). Do not guess from names.
@@ -78,7 +94,7 @@ open Elderfriend's Camera tile and the system Settings and check both.
    (Play Store), or anything whose purpose is unclear.
 5. To undo one: `adb shell pm enable <package>`.
 
-**Step 6 — final check**
+**Final check**
 
 Walk me through this on the phone: call the phone from another number, answer
 it, open Contacts and call someone back, send and receive an SMS, take a photo,
@@ -89,5 +105,5 @@ back by itself. If any step fails, help me fix it before finishing.
 
 ## Doing it without an assistant
 
-`tools/setup.sh` performs steps 1–3 (install, permissions, home app). Read it
-first — it only touches Elderfriend and asks for the APK path.
+`tools/setup.sh` performs Track 1 only (install, permissions, home app). Read it
+first — it touches nothing but Elderfriend.

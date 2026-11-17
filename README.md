@@ -133,18 +133,17 @@ extras (like replacing the swipe-to-answer dialer with
 
 ### Set it up with a coding assistant
 
-Copying one prompt into Claude Code, Codex or Gemini CLI is often easier than
-following a list of ADB commands. **[PROMPT.md](PROMPT.md)** is written for
-exactly that: connect the phone by USB, install the APK, make Elderfriend the
-home screen, optionally raise the interface size and text, and — only with
-approval — disable obvious vendor junk. Nothing is uninstalled, every step has
-an undo, and it tests calls, SMS and restarting the phone at the end.
+Elderfriend installs on its own — helpers are optional. If you would rather
+copy one prompt into Claude Code, Codex or Gemini CLI than type ADB commands,
+**[PROMPT.md](PROMPT.md)** has two independent tracks:
 
-If you prefer a script: `tools/setup.sh path/to/Elderfriend.apk` installs the
-app, grants the permissions and sets the home screen. It does not debloat.
+- **Just Elderfriend** — install, grant permissions, make it the home screen.
+  Nothing else on the phone is touched.
+- **Tuned setup** — the same, plus optional bigger interface/text and, only with
+  your approval, disabling obvious vendor junk. Every change has an undo.
 
-The approach is inspired by [CleanYourTV](https://github.com/Gathin23/cleanyourtv),
-which uses the same assistant-driven, backup-first pattern for Android TV.
+Prefer a script? `tools/setup.sh path/to/Elderfriend.apk` does the first track
+(install, permissions, home app) and nothing more.
 
 ## Permissions
 
