@@ -11,6 +11,7 @@
 
 <p align="center">
   <a href="https://ko-fi.com/ddddaaaattttoooo"><img src="https://img.shields.io/badge/Support-on%20Ko--fi-FF5E5B?style=for-the-badge&logo=kofi&logoColor=white" alt="Support Elderfriend on Ko-fi"></a>
+  <a href="https://discord.gg/gr4uwUyYTG"><img alt="Join the Discord" src="https://img.shields.io/badge/Join-on%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" /></a>
 </p>
 
 Elderfriend is a very simple Android home screen for an older parent or
