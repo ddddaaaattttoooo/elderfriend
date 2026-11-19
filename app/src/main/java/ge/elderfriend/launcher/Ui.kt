@@ -3,10 +3,12 @@ package ge.elderfriend.launcher
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.RippleDrawable
 import android.graphics.drawable.VectorDrawable
 import android.util.TypedValue
 import android.view.Gravity
@@ -36,6 +38,14 @@ object Ui {
         }
 
 
+    /** Rounded background that visibly darkens while pressed (taps need feedback). */
+    fun pressable(ctx: Context, color: Int, radiusDp: Int, pressColor: Int = 0x33000000): RippleDrawable =
+        RippleDrawable(
+            ColorStateList.valueOf(pressColor),
+            rounded(ctx, color, radiusDp),
+            rounded(ctx, Color.WHITE, radiusDp)
+        )
+
     /** A rounded panel used by the setup and caregiver screens. */
     fun card(ctx: Context): LinearLayout = LinearLayout(ctx).apply {
         orientation = LinearLayout.VERTICAL
@@ -43,6 +53,85 @@ object Ui {
         elevation = dp(ctx, 2).toFloat()
         setPadding(dp(ctx, 16), dp(ctx, 16), dp(ctx, 16), dp(ctx, 16))
     }
+
+    /**
+     * "Apps on the home screen": the chosen apps as icon + name, and a button
+     * to the picker. Used by setup and caregiver mode; rebuild it on resume.
+     */
+    fun appsCard(activity: Activity, store: TileStore): LinearLayout {
+        val ctx = activity
+        val c = card(ctx)
+        c.addView(sectionTitle(ctx, ctx.getString(R.string.caregiver_apps)))
+        c.addView(note(ctx, ctx.getString(R.string.apps_note)).also {
+            it.setPadding(0, dp(ctx, 6), 0, dp(ctx, 10))
+        })
+        val chosen = store.apps().filter { Apps.isInstalled(ctx, it) }
+        if (chosen.isEmpty()) {
+            c.addView(note(ctx, ctx.getString(R.string.no_apps_chosen)).also {
+                it.setPadding(0, 0, 0, dp(ctx, 4))
+            })
+        }
+        for (pkg in chosen) {
+            c.addView(LinearLayout(ctx).apply {
+                orientation = LinearLayout.HORIZONTAL
+                gravity = Gravity.CENTER_VERTICAL
+                setPadding(0, dp(ctx, 6), 0, dp(ctx, 6))
+                addView(ImageView(ctx).apply { setImageDrawable(Apps.icon(ctx, pkg)) },
+                    LinearLayout.LayoutParams(dp(ctx, 44), dp(ctx, 44)))
+                addView(text(ctx, Apps.label(ctx, pkg), 22f, Color.WHITE).apply {
+                    gravity = Gravity.START or Gravity.CENTER_VERTICAL
+                }, LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f).also {
+                    it.setMargins(dp(ctx, 14), 0, 0, 0)
+                })
+            })
+        }
+        c.addView(
+            bigButton(ctx, ctx.getString(R.string.choose_apps), Color.parseColor("#FF0B6E4F"), 24f, 80) {
+                ctx.startActivity(android.content.Intent(ctx, AppPickerActivity::class.java))
+            },
+            LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT).also { it.setMargins(0, dp(ctx, 10), 0, 0) }
+        )
+        return c
+    }
+
+    /** Checkboxes for the built-in tiles (call, contacts, …). */
+    fun builtInTilesCard(activity: Activity, store: TileStore): LinearLayout {
+        val ctx = activity
+        val c = card(ctx)
+        c.addView(sectionTitle(ctx, ctx.getString(R.string.caregiver_tiles)))
+        c.addView(note(ctx, ctx.getString(R.string.setup_tiles_note)).also {
+            it.setPadding(0, dp(ctx, 6), 0, dp(ctx, 8))
+        })
+        val tint = ColorStateList(
+            arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf()),
+            intArrayOf(Color.parseColor("#FF22C55E"), Color.parseColor("#FF90A4AE"))
+        )
+        for (id in TileStore.BUILT_IN) {
+            c.addView(android.widget.CheckBox(ctx).apply {
+                text = builtInLabel(ctx, id)
+                isChecked = store.visible(id)
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, 23f)
+                setTextColor(Color.WHITE)
+                buttonTintList = tint
+                isFocusable = false
+                minHeight = dp(ctx, 62)
+                setPadding(dp(ctx, 4), dp(ctx, 8), 0, dp(ctx, 8))
+                setOnCheckedChangeListener { _, checked -> store.setVisible(id, checked) }
+            }, LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT))
+        }
+        return c
+    }
+
+    fun builtInLabel(ctx: Context, id: String): String = ctx.getString(
+        when (id) {
+            "call" -> R.string.tile_call
+            "contacts" -> R.string.tile_contacts
+            "missed" -> R.string.tile_missed
+            "recent" -> R.string.tile_recent
+            "camera" -> R.string.tile_camera
+            else -> R.string.tile_messages
+        }
+    )
 
     fun sectionTitle(ctx: Context, value: CharSequence): TextView =
         text(ctx, value, 23f, Color.WHITE, true).apply { gravity = Gravity.START }
@@ -87,19 +176,31 @@ object Ui {
         contentDescription = if (subtitle.isNullOrEmpty()) label else "$label, $subtitle"
         setOnClickListener { onClick() }
         if (icon != null) {
-            background = rounded(ctx, Color.WHITE, 22)
+            // White card, big logo, and the name underneath: the logo is
+            // recognised at a glance, the name settles any doubt.
+            background = pressable(ctx, Color.WHITE, 22)
             elevation = dp(ctx, 3).toFloat()
-            setPadding(dp(ctx, 18), dp(ctx, 18), dp(ctx, 18), dp(ctx, 18))
+            setPadding(dp(ctx, 14), dp(ctx, 14), dp(ctx, 14), dp(ctx, 10))
             addView(
                 ImageView(ctx).apply {
                     setImageDrawable(icon)
                     scaleType = ImageView.ScaleType.FIT_CENTER
                     if (icon is VectorDrawable) setColorFilter(bg)
                 },
-                LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+                LinearLayout.LayoutParams(MATCH_PARENT, 0, 1f)
+            )
+            addView(
+                text(ctx, label, 24f, Color.parseColor("#FF1F2937"), true).apply {
+                    setAutoSizeTextTypeUniformWithConfiguration(
+                        14, 26, 1, TypedValue.COMPLEX_UNIT_SP
+                    )
+                    maxLines = 1
+                    setPadding(0, dp(ctx, 6), 0, 0)
+                },
+                LinearLayout.LayoutParams(MATCH_PARENT, dp(ctx, 38))
             )
         } else {
-            background = rounded(ctx, bg, 18)
+            background = pressable(ctx, bg, 18, 0x40FFFFFF)
             setPadding(dp(ctx, 10), dp(ctx, 10), dp(ctx, 10), dp(ctx, 10))
             addView(
                 text(ctx, label, 30f, Color.WHITE, true).apply {
@@ -138,7 +239,7 @@ object Ui {
         isAllCaps = false
         setTextSize(TypedValue.COMPLEX_UNIT_SP, sizeSp)
         setTextColor(fg)
-        background = rounded(ctx, bg, 16)
+        background = pressable(ctx, bg, 16, 0x40FFFFFF)
         stateListAnimator = null
         isFocusable = false
         minHeight = dp(ctx, heightDp)

@@ -5,10 +5,6 @@
     <string name="tile_call">Call</string>
     <string name="tile_contacts">Contacts</string>
     <string name="tile_messages">Messages</string>
-    <string name="tile_whatsapp">WhatsApp</string>
-    <string name="tile_viber">Viber</string>
-    <string name="tile_messenger">Messenger</string>
-    <string name="tile_facebook">Facebook</string>
     <string name="tile_camera">Camera</string>
 
     <string name="home">Home</string>
@@ -58,8 +54,14 @@
     <string name="setup_done">Done</string>
     <string name="made_by">Made by ddddaaaattttoooo</string>
     <string name="setup_permissions_note">Contacts, call log and phone access. Needed to show names, place calls and count missed calls.</string>
-    <string name="setup_tiles_note">Tick the buttons that should appear on the home screen. Apps that are not installed stay hidden.</string>
+    <string name="setup_tiles_note">Tick the buttons that should appear on the home screen.</string>
     <string name="setup_home_note">Make Elderfriend the default home app so it opens when the phone starts.</string>
     <string name="caregiver_intro">The screen for the family. Nothing here changes anything permanently.</string>
     <string name="caregiver_actions">Actions</string>
+    <string name="caregiver_apps">Apps on the home screen</string>
+    <string name="choose_apps">Choose apps</string>
+    <string name="apps_note">Tick the apps your family member uses. They appear on the home screen with their own icon.</string>
+    <string name="no_apps_chosen">No apps chosen yet.</string>
+    <string name="search">Search</string>
+    <string name="apps_chosen">Chosen: %1$d</string>
 </resources>

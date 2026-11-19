@@ -384,13 +384,24 @@ class MainActivity : Activity() {
     }
 
     private fun buildTiles() {
+        val scroll = findViewById<View>(R.id.tiles_scroll)
         val grid = findViewById<GridLayout>(R.id.tiles)
         grid.removeAllViews()
         val margin = Ui.dp(this, 6)
-        for (spec in tileSpecs()) {
-            if (!store.visible(spec.id)) continue
+        val specs = tileSpecs().filter { spec ->
             // Never show a dead button for an app that is not installed.
-            if (spec.pkg != null && !Apps.isInstalled(this, spec.pkg)) continue
+            store.visible(spec.id) && (spec.pkg == null || Apps.isInstalled(this, spec.pkg))
+        }
+        if (scroll.height == 0) {
+            // First pass happens before layout; build again once the size is known.
+            scroll.post { if (ready) buildTiles() }
+            return
+        }
+        val rows = (specs.size + 1) / 2
+        val fit = if (rows == 0) 0 else scroll.height / rows - 2 * margin
+        // Fill the screen when the tiles fit at a usable size, otherwise scroll.
+        val tileHeight = maxOf(fit, Ui.dp(this, 150))
+        for (spec in specs) {
             val icon = if (spec.pkg != null) {
                 Apps.icon(this, spec.pkg)
             } else {
@@ -423,15 +434,17 @@ class MainActivity : Activity() {
                 view
             }
             val lp = GridLayout.LayoutParams(
-                GridLayout.spec(GridLayout.UNDEFINED, 1f),
+                GridLayout.spec(GridLayout.UNDEFINED),
                 GridLayout.spec(GridLayout.UNDEFINED, 1f)
             )
             lp.width = 0
-            lp.height = 0
+            lp.height = tileHeight
             lp.setMargins(margin, margin, margin, margin)
             grid.addView(child, lp)
         }
         grid.requestLayout()
+        // Coming home always starts at the top, like a fresh screen.
+        scroll.scrollTo(0, 0)
     }
 
     /** Order matters: left to right, top to bottom, two per row. */
@@ -464,19 +477,11 @@ class MainActivity : Activity() {
             iconRes = R.drawable.ic_tile_messages) { a ->
             Apps.openSms(a)
         },
-        TileSpec("facebook", getString(R.string.tile_facebook), Color.parseColor("#FF2C3E77"), Apps.FACEBOOK) { a ->
-            Apps.launchOrSay(a, Apps.FACEBOOK, a.getString(R.string.tile_facebook))
-        },
-        TileSpec("messenger", getString(R.string.tile_messenger), Color.parseColor("#FF1B4EA8"), Apps.MESSENGER) { a ->
-            Apps.launchOrSay(a, Apps.MESSENGER, a.getString(R.string.tile_messenger))
-        },
-        TileSpec("whatsapp", getString(R.string.tile_whatsapp), Color.parseColor("#FF10603C"), Apps.WHATSAPP) { a ->
-            Apps.launchOrSay(a, Apps.WHATSAPP, a.getString(R.string.tile_whatsapp))
-        },
-        TileSpec("viber", getString(R.string.tile_viber), Color.parseColor("#FF4A2A80"), Apps.VIBER) { a ->
-            Apps.launchOrSay(a, Apps.VIBER, a.getString(R.string.tile_viber))
-        }
-    )
+    ) + store.apps().map { pkg ->
+        // Apps the caregiver picked; the id is the package, never a built-in id.
+        val label = Apps.label(this, pkg)
+        TileSpec("app:$pkg", label, Color.WHITE, pkg) { a -> Apps.launchOrSay(a, pkg, label) }
+    }
 
     // ------------------------------------------------- flight-safety systems
 

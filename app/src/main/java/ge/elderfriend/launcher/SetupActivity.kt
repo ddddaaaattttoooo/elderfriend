@@ -4,12 +4,9 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
-import android.widget.Button
-import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
@@ -28,6 +25,11 @@ class SetupActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         store = TileStore(this)
+    }
+
+    /** Rebuilt on every resume so the apps card shows what the picker saved. */
+    override fun onResume() {
+        super.onResume()
         showScreen()
     }
 
@@ -42,7 +44,8 @@ class SetupActivity : Activity() {
 
         root.addView(header(), matchWrap())
         root.addView(permissionsCard(), matchWrap().also { it.setMargins(0, Ui.dp(this, 16), 0, 0) })
-        root.addView(tilesCard(), matchWrap().also { it.setMargins(0, Ui.dp(this, 14), 0, 0) })
+        root.addView(Ui.appsCard(this, store), matchWrap().also { it.setMargins(0, Ui.dp(this, 14), 0, 0) })
+        root.addView(Ui.builtInTilesCard(this, store), matchWrap().also { it.setMargins(0, Ui.dp(this, 14), 0, 0) })
         root.addView(homeCard(), matchWrap().also { it.setMargins(0, Ui.dp(this, 14), 0, 0) })
 
         addButton(getString(R.string.setup_done), "#FF15803D", 92f)
@@ -120,33 +123,6 @@ class SetupActivity : Activity() {
         return card
     }
 
-    private fun tilesCard(): LinearLayout {
-        val card = Ui.card(this)
-        card.addView(Ui.sectionTitle(this, getString(R.string.caregiver_tiles)))
-        card.addView(Ui.note(this, getString(R.string.setup_tiles_note)).also {
-            it.setPadding(0, Ui.dp(this, 6), 0, Ui.dp(this, 8))
-        })
-        val tint = ColorStateList(
-            arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf()),
-            intArrayOf(Color.parseColor("#FF22C55E"), Color.parseColor("#FF90A4AE"))
-        )
-        for (id in TileStore.ALL) {
-            val missing = packageFor(id)?.let { !Apps.isInstalled(this, it) } ?: false
-            val check = CheckBox(this).apply {
-                text = if (missing) labelFor(id) + "  (—)" else labelFor(id)
-                isChecked = store.visible(id)
-                setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 23f)
-                setTextColor(Color.WHITE)
-                buttonTintList = tint
-                isFocusable = false
-                minHeight = Ui.dp(this@SetupActivity, 62)
-                setPadding(0, Ui.dp(this@SetupActivity, 8), 0, Ui.dp(this@SetupActivity, 8))
-                setOnCheckedChangeListener { _, checked -> store.setVisible(id, checked) }
-            }
-            card.addView(check, matchWrap())
-        }
-        return card
-    }
 
     private fun homeCard(): LinearLayout {
         val card = Ui.card(this)
@@ -214,25 +190,5 @@ class SetupActivity : Activity() {
         )
     }
 
-    private fun labelFor(id: String): String = when (id) {
-        "call" -> getString(R.string.tile_call)
-        "messages" -> getString(R.string.tile_messages)
-        "contacts" -> getString(R.string.tile_contacts)
-        "missed" -> getString(R.string.tile_missed)
-        "recent" -> getString(R.string.tile_recent)
-        "camera" -> getString(R.string.tile_camera)
-        "whatsapp" -> getString(R.string.tile_whatsapp)
-        "viber" -> getString(R.string.tile_viber)
-        "messenger" -> getString(R.string.tile_messenger)
-        "facebook" -> getString(R.string.tile_facebook)
-        else -> id
-    }
 
-    private fun packageFor(id: String): String? = when (id) {
-        "whatsapp" -> Apps.WHATSAPP
-        "viber" -> Apps.VIBER
-        "messenger" -> Apps.MESSENGER
-        "facebook" -> Apps.FACEBOOK
-        else -> null
-    }
 }

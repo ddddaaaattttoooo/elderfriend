@@ -7,10 +7,6 @@
     <string name="tile_call">Позвонить</string>
     <string name="tile_contacts">Контакты</string>
     <string name="tile_messages">Сообщения</string>
-    <string name="tile_whatsapp">WhatsApp</string>
-    <string name="tile_viber">Viber</string>
-    <string name="tile_messenger">Messenger</string>
-    <string name="tile_facebook">Facebook</string>
     <string name="tile_camera">Камера</string>
 
     <string name="home">Домой</string>
@@ -60,8 +56,14 @@
     <string name="setup_done">Готово</string>
     <string name="made_by">Сделал ddddaaaattttoooo</string>
     <string name="setup_permissions_note">Контакты, журнал вызовов и доступ к телефону. Нужны для имён, звонков и пропущенных вызовов.</string>
-    <string name="setup_tiles_note">Отметьте кнопки, которые должны быть на главном экране. Неустановленные приложения не показываются.</string>
+    <string name="setup_tiles_note">Отметьте кнопки, которые должны быть на главном экране.</string>
     <string name="setup_home_note">Сделайте Elderfriend домашним экраном, чтобы он открывался при включении телефона.</string>
     <string name="caregiver_intro">Экран для семьи. Здесь ничего не меняется безвозвратно.</string>
     <string name="caregiver_actions">Действия</string>
+    <string name="caregiver_apps">Приложения на главном экране</string>
+    <string name="choose_apps">Выбрать приложения</string>
+    <string name="apps_note">Отметьте приложения, которыми пользуется ваш близкий. Они появятся на главном экране со своей иконкой.</string>
+    <string name="no_apps_chosen">Приложения ещё не выбраны.</string>
+    <string name="search">Поиск</string>
+    <string name="apps_chosen">Выбрано: %1$d</string>
 </resources>

@@ -39,6 +39,25 @@ object Apps {
         null
     }
 
+    /** The name the app shows under its own icon. */
+    fun label(ctx: Context, pkg: String): String = try {
+        val pm = ctx.packageManager
+        pm.getApplicationLabel(pm.getApplicationInfo(pkg, 0)).toString()
+    } catch (e: Exception) {
+        pkg
+    }
+
+    /** Every app with a launcher icon except Elderfriend itself, sorted by name. */
+    fun launchable(ctx: Context): List<String> {
+        val pm = ctx.packageManager
+        val query = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
+        return pm.queryIntentActivities(query, 0)
+            .map { it.activityInfo.packageName }
+            .filter { it != ctx.packageName }
+            .distinct()
+            .sortedBy { label(ctx, it).lowercase() }
+    }
+
     fun launch(ctx: Context, pkg: String): Boolean {
         val intent = ctx.packageManager.getLaunchIntentForPackage(pkg) ?: return false
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

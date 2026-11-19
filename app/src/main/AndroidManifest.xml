@@ -9,10 +9,18 @@
     <uses-feature android:name="android.hardware.telephony" android:required="false" />
     <uses-feature android:name="android.hardware.camera" android:required="false" />
 
-    <!-- Package visibility (no-op below API 30, needed if the phone is ever replaced). -->
+    <!-- Package visibility (no-op below API 30). The LAUNCHER intent lets the
+         caregiver pick any app with an icon; without it Messenger and Facebook
+         were invisible on Android 11+ and their tiles never appeared. -->
     <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
         <package android:name="com.whatsapp" />
         <package android:name="com.viber.voip" />
+        <package android:name="com.facebook.orca" />
+        <package android:name="com.facebook.katana" />
         <package android:name="com.aurora.store" />
         <package android:name="com.android.launcher3" />
         <package android:name="com.google.android.apps.photos" />
@@ -87,6 +95,14 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Elder" />
+
+        <activity
+            android:name=".AppPickerActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|uiMode|locale|layoutDirection|fontScale"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Elder"
+            android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".CaregiverActivity"

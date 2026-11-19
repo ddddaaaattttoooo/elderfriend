@@ -5,7 +5,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/license-MIT-2f6f78?style=flat-square" alt="License: MIT">
   <img src="https://img.shields.io/badge/platform-Android%2010%2B-3ddc84?style=flat-square" alt="Android 10+">
-  <img src="https://img.shields.io/badge/version-1.0.0-f2795b?style=flat-square" alt="Version 1.0.0">
+  <img src="https://img.shields.io/badge/version-1.1.0-f2795b?style=flat-square" alt="Version 1.1.0">
   <img src="https://img.shields.io/badge/internet%20permission-none-c0392b?style=flat-square" alt="No internet permission">
 </p>
 
@@ -19,7 +19,7 @@
 </p>
 
 Elderfriend is a very simple Android home screen for an older parent or
-grandparent. One screen, up to ten big buttons, no swiping, no small text and no
+grandparent. One screen of big buttons, no swiping, no small text and no
 hidden menus. It does not replace the phone, the contacts or the dialer — it
 just puts the few things that matter in front of them in a way that is hard to
 get lost in.
@@ -34,10 +34,12 @@ It is inspired by the button-first phones made for older people in Japan
 that never asks you to guess. Elderfriend brings that idea to an ordinary
 Android phone:
 
-- **Big logo tiles** — Call, Contacts, Missed calls, Recent calls, Camera,
-  Messages, plus the messaging apps that are installed.
-- **Tiles hide themselves** if the app is not on the phone (WhatsApp, Viber,
-  Facebook, Messenger), so nobody taps a dead button.
+- **Big tiles with a name under every icon** — Call, Contacts, Missed calls,
+  Recent calls, Camera and Messages.
+- **Your choice of apps** — in caregiver mode, pick the apps your family member
+  actually uses (WhatsApp, Viber, Messenger, Facebook or anything else on the
+  phone). They get a big tile with their own logo; nothing else clutters the
+  screen. An app that gets uninstalled simply disappears from the home screen.
 - **A red number on the Missed tile** when a call was missed, cleared the next
   time the missed-call list is opened.
 - **Lists, not puzzles** — contacts, missed calls and recent calls are
@@ -58,6 +60,7 @@ belong to a real person.
 
 <p align="center">
   <img src="../docs/screenshots/home.png" alt="Home screen" width="18%">
+  <img src="../docs/screenshots/picker.png" alt="Choosing apps for the home screen" width="18%">
   <img src="../docs/screenshots/contacts.png" alt="Contacts" width="18%">
   <img src="../docs/screenshots/missed.png" alt="Missed calls" width="18%">
   <img src="../docs/screenshots/camera.png" alt="Camera menu" width="18%">
@@ -69,16 +72,16 @@ belong to a real person.
 
 <p align="center">
   <img src="../docs/screenshots/setup-1.png" alt="Setup: welcome and permissions" width="23%">
-  <img src="../docs/screenshots/setup-2.png" alt="Setup: choosing tiles" width="23%">
-  <img src="../docs/screenshots/setup-3.png" alt="Setup: remaining tiles" width="23%">
+  <img src="../docs/screenshots/setup-2.png" alt="Setup: choosing apps" width="23%">
+  <img src="../docs/screenshots/setup-3.png" alt="Setup: built-in buttons" width="23%">
   <img src="../docs/screenshots/setup-4.png" alt="Setup: home screen and done" width="23%">
 </p>
 
 ### Caregiver mode, screen by screen
 
 <p align="center">
-  <img src="../docs/screenshots/caregiver-1.png" alt="Caregiver mode: header" width="23%">
-  <img src="../docs/screenshots/caregiver-2.png" alt="Caregiver mode: tile list" width="23%">
+  <img src="../docs/screenshots/caregiver-1.png" alt="Caregiver mode: chosen apps" width="23%">
+  <img src="../docs/screenshots/caregiver-2.png" alt="Caregiver mode: built-in buttons" width="23%">
   <img src="../docs/screenshots/caregiver-3.png" alt="Caregiver mode: actions" width="23%">
   <img src="../docs/screenshots/caregiver-4.png" alt="Caregiver mode: more actions and credit" width="23%">
 </p>
@@ -89,11 +92,12 @@ The first time it opens, Elderfriend shows a short setup screen made for the
 family member who prepares the phone:
 
 1. **Permissions** — contacts, call log and phone access, with one big button.
-2. **Buttons on the home screen** — tick the tiles to show. Apps that are not
-   installed are marked `(—)` and stay hidden anyway.
-3. **Choose home screen** — opens the Android screen where Elderfriend can be
+2. **Apps on the home screen** — tap **Choose apps** and tick the apps your
+   family member uses. A search box helps on phones with many apps.
+3. **Buttons on the home screen** — untick any built-in tile that is not needed.
+4. **Choose home screen** — opens the Android screen where Elderfriend can be
    made the default home app.
-4. **Done** — or **Close** to skip; nothing is mandatory.
+5. **Done** — or **Close** to skip; nothing is mandatory.
 
 The same options are always available later in caregiver mode, so setup does
 not need to be repeated. If you want to see the wizard again, clear the app's

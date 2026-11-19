@@ -75,13 +75,24 @@
             android:textSize="18sp" />
     </LinearLayout>
 
-    <GridLayout
-        android:id="@+id/tiles"
+    <!-- Tiles fill the screen when they fit; with many apps each tile keeps a
+         usable minimum height and the grid scrolls instead of shrinking. -->
+    <ScrollView
+        android:id="@+id/tiles_scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="4dp"
         android:layout_weight="1"
-        android:columnCount="2"
-        android:rowCount="3" />
+        android:fadingEdgeLength="24dp"
+        android:requiresFadingEdge="vertical"
+        android:scrollbars="none">
+
+        <GridLayout
+            android:id="@+id/tiles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2" />
+    </ScrollView>
 
     <!-- No SOS bar: she calls family directly. Emergency dialling is still
          reachable from the stock lock screen. -->
