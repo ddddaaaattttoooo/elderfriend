@@ -10,7 +10,6 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/ddddaaaattttoooo/elderfriend/releases/latest"><img alt="Download Elderfriend on GitHub" src="https://img.shields.io/badge/Download-on%20GitHub-2f6f78?style=for-the-badge&logo=github&logoColor=white" /></a>
   <a href="https://gitlab.com/ddddaaaattttoooo/elderfriend/-/releases/permalink/latest"><img alt="Download Elderfriend on GitLab" src="https://img.shields.io/badge/Download-on%20GitLab-2f6f78?style=for-the-badge&logo=gitlab&logoColor=white" /></a>
 </p>
 
