@@ -9,6 +9,10 @@
   <img src="https://img.shields.io/badge/internet%20permission-none-c0392b?style=flat-square" alt="No internet permission">
 </p>
 
+<p align="center">
+  <a href="https://ko-fi.com/ddddaaaattttoooo"><img src="https://img.shields.io/badge/Support-on%20Ko--fi-FF5E5B?style=for-the-badge&logo=kofi&logoColor=white" alt="Support Elderfriend on Ko-fi"></a>
+</p>
+
 Elderfriend is a very simple Android home screen for an older parent or
 grandparent. One screen, up to ten big buttons, no swiping, no small text and no
 hidden menus. It does not replace the phone, the contacts or the dialer — it
