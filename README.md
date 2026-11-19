@@ -10,6 +10,11 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/ddddaaaattttoooo/elderfriend/releases/latest"><img alt="Download Elderfriend on GitHub" src="https://img.shields.io/badge/Download-on%20GitHub-2f6f78?style=for-the-badge&logo=github&logoColor=white" /></a>
+  <a href="https://gitlab.com/ddddaaaattttoooo/elderfriend/-/releases/permalink/latest"><img alt="Download Elderfriend on GitLab" src="https://img.shields.io/badge/Download-on%20GitLab-2f6f78?style=for-the-badge&logo=gitlab&logoColor=white" /></a>
+</p>
+
+<p align="center">
   <a href="https://ko-fi.com/ddddaaaattttoooo"><img src="https://img.shields.io/badge/Support-on%20Ko--fi-FF5E5B?style=for-the-badge&logo=kofi&logoColor=white" alt="Support Elderfriend on Ko-fi"></a>
   <a href="https://discord.gg/gr4uwUyYTG"><img alt="Join the Discord" src="https://img.shields.io/badge/Join-on%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" /></a>
 </p>
