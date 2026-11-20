@@ -12,7 +12,8 @@ Elderfriend is a simple Android home screen for an older parent or
 grandparent. One screen of big buttons. No swiping, no small text, no hidden
 menus.
 
-It was made for my 87-year-old great-grandmother. Android 10+, free, MIT.
+I first made it for my 87-year-old great-grandmother, but every grandparent
+deserves a phone that is easy to use. Android 10+, free, MIT.
 
 <p align="center">
   <img src="docs/screenshots/home.png" alt="Home screen" width="30%">
