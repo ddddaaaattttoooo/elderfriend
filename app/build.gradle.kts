@@ -13,8 +13,8 @@ android {
         applicationId = "ge.elderfriend.launcher"
         minSdk = 29
         targetSdk = 34
-        versionCode = 3
-        versionName = "1.2.0"
+        versionCode = 4
+        versionName = "1.2.1"
     }
 
     // Release signing: put keystore.properties next to this file (NOT committed)
