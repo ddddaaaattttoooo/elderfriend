@@ -52,6 +52,8 @@ class MainActivity : Activity() {
     private companion object {
         const val TAG = "ElderfriendHome"
         const val PREFS = "elder"
+        /** Tile id that spans the whole row. */
+        const val WIDE = "favourites"
     }
 
     private data class TileSpec(
@@ -98,6 +100,12 @@ class MainActivity : Activity() {
             ready = true
             bindHeader()
             bindFooter()
+            findViewById<View>(R.id.tiles_scroll).addOnLayoutChangeListener { v, _, top, _, bottom, _, oldTop, _, oldBottom ->
+                if (ready && bottom - top != oldBottom - oldTop) v.post { buildTiles() }
+            }
+            findViewById<View>(R.id.sos).setOnClickListener {
+                Ui.confirm(this, getString(R.string.sos_confirm), Sos.number(this)) { Sos.send(this) }
+            }
             buildTiles()
             if (!prefs().getBoolean("setup_done", false)) {
                 startActivity(Intent(this, SetupActivity::class.java))
@@ -114,6 +122,9 @@ class MainActivity : Activity() {
         if (!ready) return
         try {
             buildTiles()
+            showMissedBanner()
+            findViewById<View>(R.id.sos).visibility =
+                if (Sos.number(this).isEmpty()) View.GONE else View.VISIBLE
             refreshClock()
             registerReceiver(batteryReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
             showBattery(null)
@@ -291,6 +302,11 @@ class MainActivity : Activity() {
             status == BatteryManager.BATTERY_STATUS_FULL
         batteryView?.text = if (level < 0) "" else
             "${level * 100 / scale}%" + if (charging) " ⚡" else ""
+        val pct = level * 100 / scale
+        findViewById<TextView>(R.id.battery_banner)?.apply {
+            text = "🔋 " + getString(R.string.battery_low, pct)
+            visibility = if (level >= 0 && pct <= 20 && !charging) View.VISIBLE else View.GONE
+        }
     }
 
     private fun startSignal() {
@@ -375,12 +391,12 @@ class MainActivity : Activity() {
     private fun badge(count: Int): TextView = TextView(this).apply {
         text = if (count > 9) "9+" else count.toString()
         setTextColor(Color.WHITE)
-        setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
+        setTextSize(TypedValue.COMPLEX_UNIT_SP, 17f)
         typeface = Typeface.DEFAULT_BOLD
         gravity = Gravity.CENTER
         isClickable = false
         elevation = Ui.dp(this@MainActivity, 8).toFloat()
-        background = Ui.rounded(this@MainActivity, Color.parseColor("#FFD32F2F"), 23)
+        background = Ui.rounded(this@MainActivity, Color.parseColor("#FFD32F2F"), 18)
     }
 
     private fun buildTiles() {
@@ -397,10 +413,19 @@ class MainActivity : Activity() {
             scroll.post { if (ready) buildTiles() }
             return
         }
-        val rows = (specs.size + 1) / 2
-        val fit = if (rows == 0) 0 else scroll.height / rows - 2 * margin
-        // Fill the screen when the tiles fit at a usable size, otherwise scroll.
-        val tileHeight = maxOf(fit, Ui.dp(this, 150))
+        // Everything on one page: shrink tiles to fit, and go to 3 columns
+        // before a tile gets too small to read. Scroll is only a last resort.
+        val wideAt = specs.indexOfFirst { it.id == WIDE }
+        fun rowsFor(cols: Int): Int {
+            if (wideAt < 0) return (specs.size + cols - 1) / cols
+            val after = specs.size - wideAt - 1
+            return (wideAt + cols - 1) / cols + 1 + (after + cols - 1) / cols
+        }
+        fun fitFor(cols: Int) = rowsFor(cols).let { if (it == 0) 0 else scroll.height / it - 2 * margin }
+        // 2 columns keeps the rows Call/Contacts, Missed/Recent, Camera/Messages; 3 only if crowded.
+        val cols = if (fitFor(2) >= Ui.dp(this, 80)) 2 else 3
+        grid.columnCount = cols
+        val tileHeight = maxOf(fitFor(cols), Ui.dp(this, 72))
         for (spec in specs) {
             val icon = if (spec.pkg != null) {
                 Apps.icon(this, spec.pkg)
@@ -422,11 +447,11 @@ class MainActivity : Activity() {
             val child: View = if (missed > 0) {
                 FrameLayout(this).apply {
                     addView(view, FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT))
-                    val size = Ui.dp(this@MainActivity, 46)
+                    val size = Ui.dp(this@MainActivity, 36)
                     addView(
                         badge(missed),
                         FrameLayout.LayoutParams(size, size, Gravity.TOP or Gravity.END).also {
-                            it.setMargins(0, Ui.dp(this@MainActivity, 8), Ui.dp(this@MainActivity, 8), 0)
+                            it.setMargins(0, Ui.dp(this@MainActivity, 6), Ui.dp(this@MainActivity, 6), 0)
                         }
                     )
                 }
@@ -435,7 +460,7 @@ class MainActivity : Activity() {
             }
             val lp = GridLayout.LayoutParams(
                 GridLayout.spec(GridLayout.UNDEFINED),
-                GridLayout.spec(GridLayout.UNDEFINED, 1f)
+                GridLayout.spec(GridLayout.UNDEFINED, if (spec.id == WIDE) cols else 1, 1f)
             )
             lp.width = 0
             lp.height = tileHeight
@@ -445,6 +470,46 @@ class MainActivity : Activity() {
         grid.requestLayout()
         // Coming home always starts at the top, like a fresh screen.
         scroll.scrollTo(0, 0)
+    }
+
+    private fun showMissedBanner() {
+        val banner = findViewById<TextView>(R.id.missed_banner) ?: return
+        val since = prefs().getLong("missed_seen", 0L)
+        val calls = CallLogs.missedCalls(this, since)
+        val missed = calls.firstOrNull()
+        if (missed == null) {
+            banner.visibility = View.GONE
+            return
+        }
+        // Same number written differently (+995… vs 5…) still counts as one person.
+        val people = calls.map { it.number.filter(Char::isDigit).takeLast(9) }.distinct().size
+        if (people > 1) {
+            // Several callers: show who was last and open the list instead of guessing whom to call.
+            banner.text = "📞 " + getString(R.string.missed_banner_many, missed.name, people - 1)
+            banner.visibility = View.VISIBLE
+            banner.setOnClickListener {
+                startActivity(
+                    Intent(this, CallsActivity::class.java).putExtra(CallsActivity.EXTRA_MODE, CallsActivity.MODE_MISSED)
+                )
+            }
+            return
+        }
+        val time = android.text.format.DateUtils.formatSameDayTime(
+            missed.date, System.currentTimeMillis(), java.text.DateFormat.SHORT, java.text.DateFormat.SHORT
+        )
+        banner.text = "📞 " + if (calls.size > 1) {
+            getString(R.string.missed_banner_repeat, missed.name, calls.size)
+        } else {
+            getString(R.string.missed_banner, missed.name, time)
+        }
+        banner.visibility = View.VISIBLE
+        banner.setOnClickListener {
+            Ui.confirm(this, getString(R.string.confirm_call, missed.name), missed.number) {
+                // Calling back answers the missed call, so the banner and badge clear.
+                prefs().edit().putLong("missed_seen", System.currentTimeMillis()).apply()
+                Apps.call(this, missed.number)
+            }
+        }
     }
 
     /** Order matters: left to right, top to bottom, two per row. */
@@ -477,6 +542,14 @@ class MainActivity : Activity() {
             iconRes = R.drawable.ic_tile_messages) { a ->
             Apps.openSms(a)
         },
+    ) + (
+        // Full-width row under the built-ins, only once the caregiver pinned someone.
+        if (Favourites.list(this).isEmpty()) emptyList() else listOf(
+            TileSpec(WIDE, getString(R.string.tile_favourites), Color.parseColor("#FFC27C0E"),
+                iconRes = R.drawable.ic_tile_favourites) { a ->
+                a.startActivity(Intent(a, FavouritesActivity::class.java))
+            }
+        )
     ) + store.apps().map { pkg ->
         // Apps the caregiver picked; the id is the package, never a built-in id.
         val label = Apps.label(this, pkg)

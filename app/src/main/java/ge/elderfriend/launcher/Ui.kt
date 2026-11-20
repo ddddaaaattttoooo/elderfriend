@@ -39,6 +39,12 @@ object Ui {
 
 
     /** Rounded background that visibly darkens while pressed (taps need feedback). */
+    /** [color] at 14 % over white: a light card that still reads as that colour. */
+    fun tint(color: Int): Int {
+        fun mix(c: Int) = 255 - (255 - c) * 14 / 100
+        return Color.rgb(mix(Color.red(color)), mix(Color.green(color)), mix(Color.blue(color)))
+    }
+
     fun pressable(ctx: Context, color: Int, radiusDp: Int, pressColor: Int = 0x33000000): RippleDrawable =
         RippleDrawable(
             ColorStateList.valueOf(pressColor),
@@ -178,27 +184,26 @@ object Ui {
         if (icon != null) {
             // White card, big logo, and the name underneath: the logo is
             // recognised at a glance, the name settles any doubt.
-            background = pressable(ctx, Color.WHITE, 22)
+            // Built-in tiles get a soft wash of their own colour so each one is
+            // told apart by colour too; app logos keep a plain white card.
+            val vector = icon is VectorDrawable
+            background = pressable(ctx, if (vector) tint(bg) else Color.WHITE, 22)
             elevation = dp(ctx, 3).toFloat()
-            setPadding(dp(ctx, 14), dp(ctx, 14), dp(ctx, 14), dp(ctx, 10))
-            addView(
-                ImageView(ctx).apply {
-                    setImageDrawable(icon)
-                    scaleType = ImageView.ScaleType.FIT_CENTER
-                    if (icon is VectorDrawable) setColorFilter(bg)
-                },
-                LinearLayout.LayoutParams(MATCH_PARENT, 0, 1f)
-            )
-            addView(
-                text(ctx, label, 24f, Color.parseColor("#FF1F2937"), true).apply {
-                    setAutoSizeTextTypeUniformWithConfiguration(
-                        14, 26, 1, TypedValue.COMPLEX_UNIT_SP
-                    )
-                    maxLines = 1
-                    setPadding(0, dp(ctx, 6), 0, 0)
-                },
-                LinearLayout.LayoutParams(MATCH_PARENT, dp(ctx, 38))
-            )
+            val iconView = ImageView(ctx).apply {
+                setImageDrawable(icon)
+                scaleType = ImageView.ScaleType.FIT_CENTER
+                if (vector) setColorFilter(bg)
+            }
+            val name = text(ctx, label, 24f, Color.parseColor("#FF1F2937"), true).apply {
+                // Several words may wrap to 2 lines (smaller, so the icon stays the main thing);
+                // a single word stays on 1 so it never splits.
+                maxLines = if (' ' in label.trim()) 2 else 1
+                setAutoSizeTextTypeUniformWithConfiguration(14, if (maxLines == 2) 19 else 28, 1, TypedValue.COMPLEX_UNIT_SP)
+            }
+            setPadding(dp(ctx, 12), dp(ctx, 8), dp(ctx, 12), dp(ctx, 6))
+            addView(iconView, LinearLayout.LayoutParams(MATCH_PARENT, 0, 1f))
+            name.setPadding(0, dp(ctx, 2), 0, 0)
+            addView(name, LinearLayout.LayoutParams(MATCH_PARENT, dp(ctx, if (name.maxLines == 2) 44 else 38)))
         } else {
             background = pressable(ctx, bg, 18, 0x40FFFFFF)
             setPadding(dp(ctx, 10), dp(ctx, 10), dp(ctx, 10), dp(ctx, 10))

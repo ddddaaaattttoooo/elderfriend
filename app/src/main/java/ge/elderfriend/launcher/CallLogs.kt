@@ -25,4 +25,33 @@ object CallLogs {
             0
         }
     }
+
+    data class Missed(val name: String, val number: String, val date: Long)
+
+    /** Missed calls after [since], newest first. Name falls back to the number. */
+    fun missedCalls(ctx: Context, since: Long): List<Missed> {
+        if (ctx.checkSelfPermission(Manifest.permission.READ_CALL_LOG) !=
+            PackageManager.PERMISSION_GRANTED
+        ) return emptyList()
+        return try {
+            ctx.contentResolver.query(
+                CallLog.Calls.CONTENT_URI,
+                arrayOf(CallLog.Calls.CACHED_NAME, CallLog.Calls.NUMBER, CallLog.Calls.DATE),
+                "${CallLog.Calls.TYPE} = ? AND ${CallLog.Calls.DATE} > ?",
+                arrayOf(CallLog.Calls.MISSED_TYPE.toString(), since.toString()),
+                "${CallLog.Calls.DATE} DESC"
+            )?.use { c ->
+                val out = ArrayList<Missed>()
+                while (c.moveToNext()) {
+                    val number = c.getString(1).orEmpty()
+                    if (number.isNotBlank()) {
+                        out += Missed(c.getString(0)?.takeIf { it.isNotBlank() } ?: number, number, c.getLong(2))
+                    }
+                }
+                out
+            } ?: emptyList()
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
 }

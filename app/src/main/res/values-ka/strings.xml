@@ -33,6 +33,7 @@
     <string name="caregiver_tiles">ღილაკები მთავარ ეკრანზე</string>
     <string name="caregiver_settings">ტელეფონის პარამეტრები</string>
     <string name="caregiver_aurora">Aurora Store</string>
+    <string name="caregiver_play_store">Google Play</string>
     <string name="caregiver_home">მთავარი ეკრანის არჩევა</string>
     <string name="caregiver_permissions">ნებართვები</string>
     <string name="close">დახურვა</string>
@@ -43,7 +44,7 @@
     <string name="call_phone">ჩვეულებრივი ზარი</string>
     <string name="cancel">გაუქმება</string>
     <string name="tile_missed">გამოტოვებული</string>
-    <string name="tile_recent">ზარები</string>
+    <string name="tile_recent">ბოლოს შემოსული ზარები</string>
     <string name="missed_title">გამოტოვებული ზარები</string>
     <string name="recent_title">ბოლო ზარები</string>
     <string name="no_missed">გამოტოვებული ზარი არ არის</string>
@@ -64,4 +65,21 @@
     <string name="no_apps_chosen">აპები ჯერ არ არის არჩეული.</string>
     <string name="search">ძებნა</string>
     <string name="apps_chosen">არჩეულია: %1$d</string>
+    <string name="tile_sos">SOS</string>
+    <string name="sos_confirm">დახმარების გამოძახება?</string>
+    <string name="sos_sending">ადგილმდებარეობის გაგზავნა…</string>
+    <string name="sos_sms">SOS! დახმარება მჭირდება. სად ვარ: %1$s</string>
+    <string name="sos_no_location">ადგილმდებარეობა უცნობია</string>
+    <string name="caregiver_sos_set">SOS ნომერი</string>
+    <string name="caregiver_sos_number">SOS: %1$s</string>
+    <string name="caregiver_sos_hint">ტელეფონის ნომერი (ცარიელი = გამორთ.)</string>
+    <string name="battery_low">ტელეფონი %1$d%%-ზეა — გთხოვთ, დატენოთ</string>
+    <string name="missed_banner">%1$s დაგირეკათ %2$s-ზე — გადარეკვა</string>
+    <string name="missed_banner_repeat">%1$s დაგირეკათ %2$d-ჯერ — გადარეკვა</string>
+    <string name="missed_banner_many">%1$s და კიდევ %2$d დაგირეკათ — ნახვა</string>
+    <string name="caregiver_fav_choose">რჩეული კონტაქტები (%1$d)</string>
+    <string name="choose_contacts">რჩეულების არჩევა</string>
+    <string name="contacts_note">მონიშნეთ ადამიანები, ვისაც ყველაზე ხშირად ურეკავს. ისინი გამოჩნდებიან „რჩეულებში“ მთავარ ეკრანზე.</string>
+    <string name="tile_favourites">რჩეულები</string>
+    <string name="caregiver_update">განახლების შემოწმება (%1$s)</string>
 </resources>

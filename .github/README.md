@@ -5,7 +5,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/license-MIT-2f6f78?style=flat-square" alt="License: MIT">
   <img src="https://img.shields.io/badge/platform-Android%2010%2B-3ddc84?style=flat-square" alt="Android 10+">
-  <img src="https://img.shields.io/badge/version-1.1.0-f2795b?style=flat-square" alt="Version 1.1.0">
+  <img src="https://img.shields.io/badge/version-1.2.0-f2795b?style=flat-square" alt="Version 1.2.0">
   <img src="https://img.shields.io/badge/internet%20permission-none-c0392b?style=flat-square" alt="No internet permission">
 </p>
 
@@ -34,14 +34,26 @@ It is inspired by the button-first phones made for older people in Japan
 that never asks you to guess. Elderfriend brings that idea to an ordinary
 Android phone:
 
-- **Big tiles with a name under every icon** — Call, Contacts, Missed calls,
-  Recent calls, Camera and Messages.
+- **Everything on one page** — big tiles with a name under every icon: Call,
+  Contacts, Missed calls, Recent calls, Camera and Messages. Tiles shrink to
+  fit instead of making anyone scroll.
+- **Favourites** — the caregiver ticks the people who matter most; one big
+  Favourites tile opens a screen with a button per person (name and number).
+- **SOS** — once the caregiver sets an SOS number, a red SOS button appears
+  next to the clock. After "Call for help?" it texts that number a map link to
+  the phone's location, then calls it. Without a location it still texts and
+  calls.
 - **Your choice of apps** — in caregiver mode, pick the apps your family member
   actually uses (WhatsApp, Viber, Messenger, Facebook or anything else on the
   phone). They get a big tile with their own logo; nothing else clutters the
   screen. An app that gets uninstalled simply disappears from the home screen.
 - **A red number on the Missed tile** when a call was missed, cleared the next
   time the missed-call list is opened.
+- **"Who called" banner** — "Nino called at 14:30 — call back" right on the
+  home screen. Several calls from one person say how many times; calls from
+  different people open the missed-call list.
+- **Low battery banner** — "Phone is at 14% — please charge it" below 20%; it
+  disappears as soon as the charger is plugged in.
 - **Lists, not puzzles** — contacts, missed calls and recent calls are
   full-width rows with a name and the number or time underneath.
 - **A big "Call <name>?" confirmation** before any call is placed.
@@ -112,12 +124,19 @@ Inside caretaker mode, all controls are large and nothing is destructive:
 
 - **Buttons on the home screen** — check or uncheck any of the ten tiles.
   Missing apps show `(—)`.
+- **Favourite contacts** — tick the people for the Favourites screen, with
+  search. No limit.
+- **SOS number** — the number SOS texts and calls; leave it empty to hide SOS.
+  Setting it asks for location and SMS access.
 - **Permissions** — asks for contacts, call log and phone access, or confirms
-  they are already granted.
+  they are already granted (the button turns green with a ✓).
 - **Choose home screen** — the Android default-home picker.
 - **Phone settings** — the real Android Settings, for Wi-Fi, sound, accounts.
-- **Aurora Store** — opens the app store if it is installed.
+- **Google Play** — opens the Play Store.
+- **Aurora Store** — only shown when Aurora is installed.
 - **Restart home** — reloads the home screen after changes.
+- **Check for updates** — shows the installed version and opens the latest
+  release page in the browser.
 - **Close** — returns to the home screen.
 
 Changes apply immediately: tick a tile, close, and it is on the home screen.
@@ -166,9 +185,14 @@ Prefer a script? `tools/setup.sh path/to/Elderfriend.apk` does the first track
 | `CALL_PHONE` | place the call after the "Call <name>?" confirmation |
 | `READ_CALL_LOG` | fill the Missed and Recent lists and the red badge |
 | `READ_PHONE_STATE` | show signal bars and warn about a missing SIM |
+| `ACCESS_FINE_LOCATION` | SOS only: the map link in the SOS text |
+| `SEND_SMS` | SOS only: text the caregiver's SOS number |
 
-There is **no `INTERNET` permission** in the app: it cannot send anything
-anywhere, even if someone wanted it to.
+Location and SMS are asked for only after the caregiver sets an SOS number.
+
+There is **no `INTERNET` permission** in the app: it cannot go online. The only
+thing it can ever send is the SOS text message, to the number the caregiver
+set, and only after SOS is pressed and confirmed.
 
 ## Build it yourself
 

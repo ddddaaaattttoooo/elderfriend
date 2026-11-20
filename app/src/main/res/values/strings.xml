@@ -35,6 +35,7 @@
     <string name="caregiver_tiles">Кнопки на главном экране</string>
     <string name="caregiver_settings">Настройки телефона</string>
     <string name="caregiver_aurora">Aurora Store</string>
+    <string name="caregiver_play_store">Google Play</string>
     <string name="caregiver_home">Выбрать домашний экран</string>
     <string name="caregiver_permissions">Разрешения</string>
     <string name="close">Закрыть</string>
@@ -45,7 +46,7 @@
     <string name="call_phone">Обычный звонок</string>
     <string name="cancel">Отмена</string>
     <string name="tile_missed">Пропущенные</string>
-    <string name="tile_recent">Звонки</string>
+    <string name="tile_recent">Недавние</string>
     <string name="missed_title">Пропущенные звонки</string>
     <string name="recent_title">Последние звонки</string>
     <string name="no_missed">Нет пропущенных звонков</string>
@@ -66,4 +67,21 @@
     <string name="no_apps_chosen">Приложения ещё не выбраны.</string>
     <string name="search">Поиск</string>
     <string name="apps_chosen">Выбрано: %1$d</string>
+    <string name="tile_sos">SOS</string>
+    <string name="sos_confirm">Позвать на помощь?</string>
+    <string name="sos_sending">Отправляю место…</string>
+    <string name="sos_sms">SOS! Нужна помощь. Где я: %1$s</string>
+    <string name="sos_no_location">место неизвестно</string>
+    <string name="caregiver_sos_set">Номер SOS</string>
+    <string name="caregiver_sos_number">SOS: %1$s</string>
+    <string name="caregiver_sos_hint">Номер телефона (пусто = выкл.)</string>
+    <string name="battery_low">Телефон на %1$d%% — пожалуйста, поставьте на зарядку</string>
+    <string name="missed_banner">%1$s звонил(а) в %2$s — перезвонить</string>
+    <string name="missed_banner_repeat">Пропущено звонков от %1$s: %2$d — перезвонить</string>
+    <string name="missed_banner_many">%1$s и ещё %2$d звонили — посмотреть</string>
+    <string name="caregiver_fav_choose">Избранные контакты (%1$d)</string>
+    <string name="choose_contacts">Выбрать избранных</string>
+    <string name="contacts_note">Отметьте людей, которым звонят чаще всего. Они появятся в «Избранных» на главном экране.</string>
+    <string name="tile_favourites">Избранные</string>
+    <string name="caregiver_update">Проверить обновления (%1$s)</string>
 </resources>

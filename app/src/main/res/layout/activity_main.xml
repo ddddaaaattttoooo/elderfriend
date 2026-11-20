@@ -13,11 +13,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_header"
-        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingStart="14dp"
         android:paddingTop="10dp"
         android:paddingEnd="14dp"
         android:paddingBottom="8dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,7 +80,66 @@
             android:maxLines="2"
             android:textColor="#FFDDDDDD"
             android:textSize="18sp" />
+        </LinearLayout>
+
+        <!-- Shown only when the caregiver set an SOS number. -->
+        <Button
+            android:id="@+id/sos"
+            android:layout_width="wrap_content"
+            android:layout_height="64dp"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/sos_bg"
+            android:minWidth="88dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="@string/tile_sos"
+            android:textColor="#FFFFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
     </LinearLayout>
+
+    <!-- Shown below 20 % when not charging. -->
+    <TextView
+        android:id="@+id/battery_banner"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:autoSizeMaxTextSize="24sp"
+        android:autoSizeMinTextSize="14sp"
+        android:autoSizeTextType="uniform"
+        android:maxLines="2"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/banner_warn"
+        android:gravity="center"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:textColor="#FF1F1300"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <!-- Newest unseen missed call; tap to call back. -->
+    <TextView
+        android:id="@+id/missed_banner"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:autoSizeMaxTextSize="24sp"
+        android:autoSizeMinTextSize="14sp"
+        android:autoSizeTextType="uniform"
+        android:maxLines="2"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/banner_call"
+        android:gravity="center"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:textColor="#FFFFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <!-- Tiles fill the screen when they fit; with many apps each tile keeps a
          usable minimum height and the grid scrolls instead of shrinking. -->
@@ -94,8 +160,8 @@
             android:columnCount="2" />
     </ScrollView>
 
-    <!-- No SOS bar: she calls family directly. Emergency dialling is still
-         reachable from the stock lock screen. -->
+    <!-- No SOS bar: SOS is a small header button, only when the caregiver set
+         a number. Emergency dialling is still reachable from the stock lock screen. -->
 
     <!-- Restart handle: a dim strip that needs a 10 s hold, so it cannot be
          triggered by accident but is always there when something goes wrong. -->

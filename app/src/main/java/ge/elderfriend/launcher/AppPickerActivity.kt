@@ -19,13 +19,18 @@ import android.widget.ScrollView
 import android.widget.TextView
 
 /**
- * Caregiver-only: pick which installed apps get a tile on the home screen.
+ * Caregiver-only: pick which installed apps get a tile on the home screen,
+ * or (with [EXTRA_CONTACTS]) which people go on the Favourites screen.
  * Chosen apps are listed first, in home-screen order; ticking an app adds it
  * to the end, unticking removes it. Saved on every change, so Back is safe.
  */
 class AppPickerActivity : Activity() {
 
     private class Row(val pkg: String, val label: String, val view: View, val check: CheckBox)
+    private class Item(val key: String, val label: String, val icon: android.graphics.drawable.Drawable?, val sub: String? = null)
+
+    private val contacts by lazy { intent.getBooleanExtra(EXTRA_CONTACTS, false) }
+    private val people by lazy { Favourites.all(this).associateBy { it.number } }
 
     private lateinit var store: TileStore
     private val chosen = mutableListOf<String>()
@@ -35,7 +40,7 @@ class AppPickerActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         store = TileStore(this)
-        chosen += store.apps()
+        chosen += if (contacts) Favourites.list(this).map { it.number } else store.apps()
 
         val page = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
@@ -48,11 +53,16 @@ class AppPickerActivity : Activity() {
         })
 
         val list = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
-        val installed = Apps.launchable(this)
+        val items = if (contacts) {
+            people.values.map { Item(it.number, it.name, Favourites.photo(this, it) ?: getDrawable(R.drawable.ic_tile_contacts), it.number) }
+        } else {
+            Apps.launchable(this).map { Item(it, Apps.label(this, it), Apps.icon(this, it)) }
+        }
+        val byKey = items.associateBy { it.key }
         // Chosen first (in their order), then everything else alphabetically.
-        val ordered = chosen.filter { it in installed } + installed.filter { it !in chosen }
-        for (pkg in ordered) {
-            val row = row(pkg)
+        val ordered = chosen.mapNotNull { byKey[it] } + items.filter { it.key !in chosen }
+        for (item in ordered) {
+            val row = row(item)
             rows += row
             list.addView(row.view, LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT).also {
                 it.setMargins(0, dp(4), 0, dp(4))
@@ -79,10 +89,10 @@ class AppPickerActivity : Activity() {
             background = Ui.rounded(this@AppPickerActivity, Color.parseColor("#FF1E2A3A"), 24)
             setPadding(dp(18), dp(18), dp(18), dp(18))
         }
-        card.addView(Ui.text(this, getString(R.string.choose_apps), 26f, Color.WHITE, true).apply {
+        card.addView(Ui.text(this, getString(if (contacts) R.string.choose_contacts else R.string.choose_apps), 26f, Color.WHITE, true).apply {
             gravity = Gravity.START
         })
-        card.addView(Ui.note(this, getString(R.string.apps_note)).also {
+        card.addView(Ui.note(this, getString(if (contacts) R.string.contacts_note else R.string.apps_note)).also {
             it.setPadding(0, dp(6), 0, 0)
         })
         countView = Ui.text(this, "", 18f, Color.parseColor("#FF86EFAC"), true).apply {
@@ -115,8 +125,9 @@ class AppPickerActivity : Activity() {
         }
     }
 
-    private fun row(pkg: String): Row {
-        val label = Apps.label(this, pkg)
+    private fun row(item: Item): Row {
+        val pkg = item.key
+        val label = item.label
         val check = CheckBox(this).apply {
             isChecked = pkg in chosen
             isClickable = false
@@ -136,11 +147,18 @@ class AppPickerActivity : Activity() {
             minimumHeight = dp(76)
             contentDescription = label
             addView(ImageView(this@AppPickerActivity).apply {
-                setImageDrawable(Apps.icon(this@AppPickerActivity, pkg))
+                setImageDrawable(item.icon)
             }, LinearLayout.LayoutParams(dp(52), dp(52)))
-            addView(Ui.text(this@AppPickerActivity, label, 22f, Color.WHITE).apply {
-                gravity = Gravity.START or Gravity.CENTER_VERTICAL
-                maxLines = 2
+            addView(LinearLayout(this@AppPickerActivity).apply {
+                orientation = LinearLayout.VERTICAL
+                addView(Ui.text(this@AppPickerActivity, label, 22f, Color.WHITE).apply {
+                    gravity = Gravity.START or Gravity.CENTER_VERTICAL
+                    maxLines = 2
+                })
+                // Contacts: the number tells apart two people with the same name.
+                if (item.sub != null) addView(Ui.text(this@AppPickerActivity, item.sub, 18f, Color.parseColor("#FF9FB0C0")).apply {
+                    gravity = Gravity.START
+                })
             }, LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f).also { it.setMargins(dp(16), 0, dp(8), 0) })
             addView(check, LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).also {
                 it.setMargins(0, 0, dp(6), 0)
@@ -148,7 +166,8 @@ class AppPickerActivity : Activity() {
             setOnClickListener {
                 check.isChecked = !check.isChecked
                 if (check.isChecked) chosen += pkg else chosen -= pkg
-                store.setApps(chosen)
+                if (contacts) Favourites.set(this@AppPickerActivity, chosen.mapNotNull { people[it] })
+                else store.setApps(chosen)
                 updateCount()
             }
         }
@@ -157,5 +176,9 @@ class AppPickerActivity : Activity() {
 
     private fun updateCount() {
         countView.text = getString(R.string.apps_chosen, chosen.size)
+    }
+
+    companion object {
+        const val EXTRA_CONTACTS = "contacts"
     }
 }

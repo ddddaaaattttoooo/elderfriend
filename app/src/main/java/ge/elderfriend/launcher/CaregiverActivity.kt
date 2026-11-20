@@ -13,7 +13,7 @@ import android.widget.ScrollView
 /**
  * Caregiver mode: reached only by long-pressing the home screen header for 3
  * seconds. From here the family can hide/show tiles, open the real Settings,
- * open Aurora, change the default home screen, or grant permissions.
+ * open Aurora or the Play Store, change the default home screen, or grant permissions.
  * Nothing here changes anything irreversible.
  */
 class CaregiverActivity : Activity() {
@@ -103,24 +103,71 @@ class CaregiverActivity : Activity() {
         addButton(card, getString(R.string.caregiver_home), "#FF5B3A9C") {
             safeStart(Intent(android.provider.Settings.ACTION_HOME_SETTINGS))
         }
-        addButton(card, getString(R.string.caregiver_aurora), "#FF10603C") {
-            Apps.launchOrSay(this, Apps.AURORA, getString(R.string.caregiver_aurora))
+        addButton(card, getString(R.string.caregiver_play_store), "#FF1E6E8C") {
+            Apps.launchOrSay(this, Apps.PLAY_STORE, getString(R.string.caregiver_play_store))
         }
-        addButton(card, getString(R.string.caregiver_permissions), "#FF8A4B00") {
-            val wanted = listOf(
-                Manifest.permission.CALL_PHONE,
-                Manifest.permission.READ_CONTACTS,
-                Manifest.permission.READ_CALL_LOG,
-                Manifest.permission.READ_PHONE_STATE
-            ).filter { checkSelfPermission(it) != PackageManager.PERMISSION_GRANTED }
-            if (wanted.isEmpty()) {
-                Ui.info(this, getString(R.string.caregiver_permissions) + ": OK")
-            } else {
-                requestPermissions(wanted.toTypedArray(), 1)
+        if (Apps.isInstalled(this, Apps.AURORA)) {
+            addButton(card, getString(R.string.caregiver_aurora), "#FF10603C") {
+                Apps.launchOrSay(this, Apps.AURORA, getString(R.string.caregiver_aurora))
             }
+        }
+        addButton(card, getString(R.string.caregiver_fav_choose, Favourites.list(this).size), "#FF0E7490") {
+            startActivity(Intent(this, AppPickerActivity::class.java).putExtra(AppPickerActivity.EXTRA_CONTACTS, true))
+        }
+        val sosNumber = Sos.number(this)
+        addButton(
+            card,
+            if (sosNumber.isEmpty()) getString(R.string.caregiver_sos_set) else getString(R.string.caregiver_sos_number, sosNumber),
+            "#FFB00020"
+        ) { askSosNumber() }
+        val missing = (listOf(
+            Manifest.permission.CALL_PHONE,
+            Manifest.permission.READ_CONTACTS,
+            Manifest.permission.READ_CALL_LOG,
+            Manifest.permission.READ_PHONE_STATE
+        ) + if (sosNumber.isEmpty()) emptyList() else Sos.PERMISSIONS).filter { checkSelfPermission(it) != PackageManager.PERMISSION_GRANTED }
+        if (missing.isEmpty()) {
+            addButton(card, "✓ " + getString(R.string.caregiver_permissions), "#FF1F8A4C") {
+                Ui.info(this, getString(R.string.caregiver_permissions) + ": OK")
+            }
+        } else {
+            addButton(card, getString(R.string.caregiver_permissions), "#FF8A4B00") {
+                requestPermissions(missing.toTypedArray(), 1)
+            }
+        }
+        // No INTERNET permission: the browser shows the latest release and downloads the APK.
+        val version = try { packageManager.getPackageInfo(packageName, 0).versionName } catch (e: Exception) { null }
+        addButton(card, getString(R.string.caregiver_update, version.orEmpty()), "#FF334155") {
+            safeStart(Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://github.com/ddddaaaattttoooo/elderfriend/releases/latest")))
         }
         addButton(card, getString(R.string.close), "#FF374151") { finish() }
         return card
+    }
+
+    /** Empty number hides the SOS tile; a number asks for location + SMS. */
+    private fun askSosNumber() {
+        val input = android.widget.EditText(this).apply {
+            inputType = android.text.InputType.TYPE_CLASS_PHONE
+            setText(Sos.number(this@CaregiverActivity))
+            textSize = 28f
+            hint = getString(R.string.caregiver_sos_hint)
+        }
+        android.app.AlertDialog.Builder(this)
+            .setTitle(R.string.caregiver_sos_set)
+            .setView(input)
+            .setPositiveButton(R.string.yes) { _, _ ->
+                Sos.setNumber(this, input.text.toString())
+                val need = Sos.PERMISSIONS.filter { checkSelfPermission(it) != PackageManager.PERMISSION_GRANTED }
+                if (Sos.number(this).isNotEmpty() && need.isNotEmpty()) requestPermissions(need.toTypedArray(), 2)
+                else showScreen()
+            }
+            .setNegativeButton(R.string.no, null)
+            .show()
+    }
+
+    /** Redraw so the Permissions button turns green once everything is granted. */
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        showScreen()
     }
 
     private fun addButton(parent: LinearLayout, label: String, color: String, onClick: () -> Unit) {

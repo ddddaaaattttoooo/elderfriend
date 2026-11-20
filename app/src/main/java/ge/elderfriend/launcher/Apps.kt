@@ -18,6 +18,7 @@ object Apps {
     const val MESSENGER = "com.facebook.orca"
     const val FACEBOOK = "com.facebook.katana"
     const val AURORA = "com.aurora.store"
+    const val PLAY_STORE = "com.android.vending"
     const val STOCK_HOME = "com.android.launcher3"
     const val PHOTOS = "com.google.android.apps.photos"
 

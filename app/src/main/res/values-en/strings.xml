@@ -33,6 +33,7 @@
     <string name="caregiver_tiles">Buttons on the home screen</string>
     <string name="caregiver_settings">Phone settings</string>
     <string name="caregiver_aurora">Aurora Store</string>
+    <string name="caregiver_play_store">Google Play</string>
     <string name="caregiver_home">Choose home screen</string>
     <string name="caregiver_permissions">Permissions</string>
     <string name="close">Close</string>
@@ -64,4 +65,21 @@
     <string name="no_apps_chosen">No apps chosen yet.</string>
     <string name="search">Search</string>
     <string name="apps_chosen">Chosen: %1$d</string>
+    <string name="tile_sos">SOS</string>
+    <string name="sos_confirm">Call for help?</string>
+    <string name="sos_sending">Sending location…</string>
+    <string name="sos_sms">SOS! I need help. My location: %1$s</string>
+    <string name="sos_no_location">location unavailable</string>
+    <string name="caregiver_sos_set">SOS number</string>
+    <string name="caregiver_sos_number">SOS: %1$s</string>
+    <string name="caregiver_sos_hint">Phone number (empty = off)</string>
+    <string name="battery_low">Phone is at %1$d%% — please charge it</string>
+    <string name="missed_banner">%1$s called at %2$s — call back</string>
+    <string name="missed_banner_repeat">You missed %2$d calls from %1$s — call back</string>
+    <string name="missed_banner_many">%1$s and %2$d more called — see list</string>
+    <string name="caregiver_fav_choose">Favourite contacts (%1$d)</string>
+    <string name="choose_contacts">Choose favourites</string>
+    <string name="contacts_note">Tick the people your family member calls most. They appear under Favourites on the home screen.</string>
+    <string name="tile_favourites">Favourites</string>
+    <string name="caregiver_update">Check for updates (%1$s)</string>
 </resources>
