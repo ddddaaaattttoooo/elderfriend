@@ -1,5 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="18 18 72 72" width="1024" height="1024">
   <rect x="18" y="18" width="72" height="72" rx="16.5" fill="#EF7D57"/>
   <path d="M54,30 L80,52 L74,52 L74,78 L34,78 L34,52 L28,52 Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="round"/>
-  <path d="M54,70 C44,63 44,54 50,54 C52.5,54 54,56 54,57.5 C54,56 55.5,54 58,54 C64,54 64,63 54,70 Z" fill="#EF7D57"/>
+  <path id="heart" d="M54,48 C49,44.5 49,40 52,40 C53.2,40 54,41 54,41.8 C54,41 54.8,40 56,40 C59,40 59,44.5 54,48 Z" fill="#EF7D57"/>
+  <path id="grandpa_head" d="M40.5,62 a4.5,4.5 0 1,0 9,0 a4.5,4.5 0 1,0 -9,0 Z" fill="#EF7D57"/>
+  <path id="grandpa_body" d="M38,78 L38,73 C38,69 41,67.5 45,67.5 C49,67.5 52,69 52,73 L52,78 Z" fill="#EF7D57"/>
+  <path id="grandma_bun" d="M60.4,56.3 a2.6,2.6 0 1,0 5.2,0 a2.6,2.6 0 1,0 -5.2,0 Z" fill="#EF7D57"/>
+  <path id="grandma_head" d="M58.7,62 a4.3,4.3 0 1,0 8.6,0 a4.3,4.3 0 1,0 -8.6,0 Z" fill="#EF7D57"/>
+  <path id="grandma_body" d="M55.5,78 L57.5,72 C58.3,69.3 60.3,68 63,68 C65.7,68 67.7,69.3 68.5,72 L70.5,78 Z" fill="#EF7D57"/>
 </svg>

@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- App icon: white house with a heart. Same shapes as assets/logo.svg. -->
+<!-- App icon: white house, heart in the roof, grandpa and grandma inside. Same shapes as assets/logo.svg. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp" android:height="108dp"
     android:viewportWidth="108" android:viewportHeight="108">
     <path android:fillColor="#FFFFFF" android:strokeColor="#FFFFFF"
         android:strokeWidth="4" android:strokeLineJoin="round"
         android:pathData="M54,30 L80,52 L74,52 L74,78 L34,78 L34,52 L28,52 Z" />
-    <path android:fillColor="@color/ic_launcher_background" android:pathData="M54,70 C44,63 44,54 50,54 C52.5,54 54,56 54,57.5 C54,56 55.5,54 58,54 C64,54 64,63 54,70 Z" />
+    <path android:name="heart" android:fillColor="@color/ic_launcher_background"
+        android:pathData="M54,48 C49,44.5 49,40 52,40 C53.2,40 54,41 54,41.8 C54,41 54.8,40 56,40 C59,40 59,44.5 54,48 Z" />
+    <path android:name="grandpa_head" android:fillColor="@color/ic_launcher_background"
+        android:pathData="M40.5,62 a4.5,4.5 0 1,0 9,0 a4.5,4.5 0 1,0 -9,0 Z" />
+    <path android:name="grandpa_body" android:fillColor="@color/ic_launcher_background"
+        android:pathData="M38,78 L38,73 C38,69 41,67.5 45,67.5 C49,67.5 52,69 52,73 L52,78 Z" />
+    <path android:name="grandma_bun" android:fillColor="@color/ic_launcher_background"
+        android:pathData="M60.4,56.3 a2.6,2.6 0 1,0 5.2,0 a2.6,2.6 0 1,0 -5.2,0 Z" />
+    <path android:name="grandma_head" android:fillColor="@color/ic_launcher_background"
+        android:pathData="M58.7,62 a4.3,4.3 0 1,0 8.6,0 a4.3,4.3 0 1,0 -8.6,0 Z" />
+    <path android:name="grandma_body" android:fillColor="@color/ic_launcher_background"
+        android:pathData="M55.5,78 L57.5,72 C58.3,69.3 60.3,68 63,68 C65.7,68 67.7,69.3 68.5,72 L70.5,78 Z" />
 </vector>
